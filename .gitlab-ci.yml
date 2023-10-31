@@ -1,0 +1,81 @@
+variables:
+  AWS_ECR_REGISTRY_URI: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_PROJECT_NAME}
+  AWS_ECR_IMAGE_URI: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_PROJECT_NAME}/${ECR_APP_NAME}
+
+stages:
+  - build
+  - deploy
+
+.setenv_script: &setenv_script
+  - >-
+      export REGISTRY_URI=${AWS_ECR_REGISTRY_URI} \
+        IMAGE_NAME=${ECR_APP_NAME} REV_ID=$CI_COMMIT_SHORT_SHA
+  - envsubst '\$AWS_REGION \$AWS_SECRET_ACCESS_KEY \$AWS_ACCESS_KEY_ID \$APP_NAME \$APP_PORT \$REGISTRY_URI \$IMAGE_NAME \$REV_ID' <  deploy/.env.template > deploy.env
+
+.ssh_deploy_script: &ssh_deploy_script
+   - >-
+       scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null deploy.env ${SSH_USER}@${INSTANCE_ADDRESS}:~/$target/.env
+   - >-
+       scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null deploy.env ${SSH_USER}@${INSTANCE_ADDRESS}:~/$target/deploy.env
+   - >-
+       scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $CI_PROJECT_DIR/deploy.env ${SSH_USER}@${INSTANCE_ADDRESS}:~/$target/deploy.env
+   - >-
+       scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $CI_PROJECT_DIR/docker-compose.yml ${SSH_USER}@${INSTANCE_ADDRESS}:~/$target/docker-compose.yml
+   - >-
+       ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+         ${SSH_USER}@${INSTANCE_ADDRESS} 'bash -s' < $CI_PROJECT_DIR/deploy/scripts/start.sh $target
+
+default:
+  image: docker:19.03.12
+
+build:
+  stage: build
+  services:
+    - docker:19.03.12-dind
+  environment:
+    name: admin-dashboard
+  only:
+    - development
+  before_script:
+    - alias aws='docker run --rm -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli'
+    - aws --version
+    - aws --profile default configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+    - aws --profile default configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+    - aws --profile default configure set region ${AWS_REGION}
+    - aws --profile default configure set output "json"
+    - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY_URI}
+  script:
+    - >-
+        docker build \
+          --build-arg APP_PORT=${APP_PORT} \
+          -t ${AWS_ECR_IMAGE_URI}:$CI_COMMIT_SHORT_SHA \
+          -t ${AWS_ECR_IMAGE_URI}:latest .
+    - docker push ${AWS_ECR_IMAGE_URI}:$CI_COMMIT_SHORT_SHA
+    - docker push ${AWS_ECR_IMAGE_URI}:latest
+  after_script:
+    - rm -rfv ~/.aws
+    - docker logout ${AWS_ECR_REGISTRY_URI}
+
+deploy:
+  stage: deploy
+  environment:
+    name: admin-dashboard
+  only:
+    - development
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - chmod 400 "$PRIV_SSH_CREDENTIALS"
+    - ssh-add "$PRIV_SSH_CREDENTIALS"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - apk add gettext
+    - cp .env.example deploy.env
+    - *setenv_script
+    - cat deploy.env
+    - export target=ziara-admin-dashboard
+    - *ssh_deploy_script
+  #after_script:
+    #- rm $CI_PROJECT_DIR/deploy.env
+
