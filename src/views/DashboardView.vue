@@ -109,26 +109,6 @@ export default {
           icon: "mdi-briefcase",
           to: "/dashboard/businesses",
         },
-        // {
-        //   title: "Activities",
-        //   icon: "mdi-laptop",
-        //   to: "/dashboard/activities",
-        // },
-        // {
-        //   title: "Communities",
-        //   icon: "mdi-account-group-outline",
-        //   to: "/dashboard/communities",
-        // },
-        // {
-        //   title: "Messages",
-        //   icon: "mdi-message-badge-outline",
-        //   to: "/dashboard/messages",
-        // },
-        // {
-        //   title: "RSVP",
-        //   icon: "mdi-calendar-question",
-        //   to: "/dashboard/rsvp",
-        // },
       ],
       selectedEmployee: {
         name: "",
