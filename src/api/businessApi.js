@@ -20,8 +20,8 @@ export function filterBusiness(payload) {
   );
 }
 
-export function updateBusiness(data) {
-  return axios.patch(`/api/v1/users/${data.id}`, data.values);
+export function createCustomer(data) {
+  return axios.post(`/api/v1/customers`, data);
 }
 
 export function activateBusiness(id) {

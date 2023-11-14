@@ -12,6 +12,7 @@ export default {
     commit("SHOW_PROGRESSBAR", true, { root: true });
     const response = await getUsers();
     const users = response.data.data;
+    console.log("users", users);
     const totalUsers = response.data.totalRecords;
     commit("SET_USERS", users);
     commit("SET_USERS_RECORDS", totalUsers);

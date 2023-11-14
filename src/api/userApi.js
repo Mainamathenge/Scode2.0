@@ -5,7 +5,7 @@ export function getUser(id) {
 }
 
 export function getUsers() {
-  return axios.get(`/api/v1/dashboards/user/explorer`);
+  return axios.get(`/api/v1/customers`);
 }
 
 export function searchUsers(payload) {

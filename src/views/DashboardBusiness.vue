@@ -126,27 +126,6 @@ export default {
       snackbar: false,
     };
   },
-  created() {
-    this.$store.dispatch("businesses/fetchBusinesses");
-    this.$store.dispatch("searches/setSearchStore", {
-      storeName: "businesses",
-      actionName: "searchBusiness",
-    });
-  },
-  computed: {
-    receivedBusinesses() {
-      return this.$store.getters["businesses/businesses"];
-    },
-    totalBusinesses() {
-      return this.$store.getters["businesses/totalBusinesses"];
-    },
-    businessesObj() {
-      return this.$store.getters["businesses/businessesObj"];
-    },
-    isSmallScreen() {
-      return this.$vuetify.breakpoint.smAndDown;
-    },
-  },
   methods: {
     setBusiness(event) {
       this.snackbar = true;
@@ -154,49 +133,6 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
-    },
-    handleSubmenuItemClick(subItem) {
-      if (subItem.label === "Approved") {
-        const payload = {
-          pageNumber: 1,
-          query: "approved",
-          value: "kycStatus",
-        };
-        this.$store.dispatch("businesses/filterBusiness", payload);
-      }
-      if (subItem.label === "Cancelled") {
-        const payload = {
-          pageNumber: 1,
-          query: "cancelled",
-          value: "kycStatus",
-        };
-        this.$store.dispatch("businesses/filterBusiness", payload);
-      }
-      if (subItem.label === "PendingApproval") {
-        const payload = {
-          pageNumber: 1,
-          query: "pending",
-          value: "kycStatus",
-        };
-        this.$store.dispatch("businesses/filterBusiness", payload);
-      }
-      if (subItem.label === "Active") {
-        const payload = {
-          pageNumber: 1,
-          query: true,
-          value: "active",
-        };
-        this.$store.dispatch("businesses/filterBusiness", payload);
-      }
-      if (subItem.label === "Inactive") {
-        const payload = {
-          pageNumber: 1,
-          query: false,
-          value: "active",
-        };
-        console.log();
-        this.$store.dispatch("businesses/filterBusiness", payload);
-      }
     },
   },
 };

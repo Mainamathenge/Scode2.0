@@ -9,7 +9,7 @@
       @click:row="selectRow"
       @page-count="pageCount = $event"
     >
-      <template v-slot:[`item.photo`]="{ item }">
+      <!-- <template v-slot:[`item.photo`]="{ item }">
         <v-avatar size="36">
           <img :src="item.photo" :alt="item.photo" />
         </v-avatar>
@@ -21,7 +21,7 @@
       </template>
       <template v-slot:[`item.createdAt`]="{ item }">
         {{ item.createdAt | niceDate }}
-      </template>
+      </template> -->
       <template v-slot:[`item.actions`]="{ item }">
         <UsersTableMenu :user="item" />
       </template>
@@ -63,9 +63,10 @@ export default {
     pageCount: 0,
     itemsPerPage: 10,
     headers: [
-      { text: "Avatar", value: "photo" },
-      { text: "", value: "userName" },
-      { text: "Email", value: "email" },
+      { text: "Name", value: "fullName" },
+      { text: "Device", value: "Device" },
+      { text: "Phone", value: "phone" },
+      { text: "Balance", value: "loanamount" },
       { text: "Created", value: "createdAt" },
       { text: "Location", value: "location" },
       { text: "Status", value: "active" },

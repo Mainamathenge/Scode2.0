@@ -3,7 +3,7 @@ import {
   activateBusiness,
   deactivateBusiness,
   searchBusiness,
-  updateBusiness,
+  createCustomer,
   filterBusiness,
 } from "@/api/businessApi";
 
@@ -39,15 +39,15 @@ export default {
     commit("HIDE_PROGRESSBAR", false, { root: true });
   },
 
-  async updateBusiness(context, payload) {
+  async createCustomer(context, payload) {
     context.commit("SHOW_PROGRESSBAR", true, { root: true });
-    await updateBusiness(payload);
-    context.dispatch("fetchBusinesses");
+    console.log(payload);
+    await createCustomer(payload);
     context.commit("HIDE_PROGRESSBAR", false, { root: true });
     context.commit(
       "SHOW_SNACKBAR",
       {
-        text: "Business details updated!",
+        text: "Customer Created!",
         color: "success",
       },
       { root: true }
