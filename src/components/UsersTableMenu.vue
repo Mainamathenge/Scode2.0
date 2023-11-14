@@ -38,11 +38,11 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <DialogView
+    <!-- <DialogView
       @close="dialogs.view = false"
       v-if="dialogs.view"
       :user="user"
-    />
+    /> -->
     <DialogEdit
       @close="dialogs.edit = false"
       v-if="dialogs.edit"
@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import DialogView from "./Dialoags/User/DialogView.vue";
 import DialogEdit from "./Dialoags/User/DialogEdit.vue";
 import DialogActivate from "./Dialoags/User/DialogActivate.vue";
 import DialogDeactivate from "./Dialoags/User/DialogDeactivate.vue";
@@ -70,7 +69,6 @@ import DialogDeactivate from "./Dialoags/User/DialogDeactivate.vue";
 export default {
   props: ["user"],
   components: {
-    DialogView,
     DialogEdit,
     DialogDeactivate,
     DialogActivate,

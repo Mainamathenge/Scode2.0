@@ -13,13 +13,13 @@
         <v-avatar size="36">
           <img :src="item.photo" :alt="item.photo" />
         </v-avatar>
-      </template>
+      </template> -->
       <template v-slot:[`item.active`]="{ item }">
         <v-chip class="ma-2" :color="getColor(item.active)[1]" label outlined>
           {{ getColor(item.active)[0] }}
         </v-chip>
       </template>
-      <template v-slot:[`item.createdAt`]="{ item }">
+      <!-- <template v-slot:[`item.createdAt`]="{ item }">
         {{ item.createdAt | niceDate }}
       </template> -->
       <template v-slot:[`item.actions`]="{ item }">
@@ -67,7 +67,6 @@ export default {
       { text: "Device", value: "Device" },
       { text: "Phone", value: "phone" },
       { text: "Balance", value: "loanamount" },
-      { text: "Created", value: "createdAt" },
       { text: "Location", value: "location" },
       { text: "Status", value: "active" },
       { text: "", value: "actions" },

@@ -4,28 +4,36 @@
       <v-card-title class="text-h5 mb-3"> Edit user</v-card-title>
       <v-card-text>
         <v-text-field
-          v-model="userName"
-          outlined
-          :rules="emptyStringRule"
-          label="User name"
-          dense
-          color="#C3D7FF"
-          style="border-radius: 10px"
-        ></v-text-field>
-        <v-text-field
           v-model="fullName"
           outlined
           :rules="emptyStringRule"
-          label="Full name"
+          label="Full Name"
           dense
           color="#C3D7FF"
           style="border-radius: 10px"
         ></v-text-field>
         <v-text-field
-          v-model="email"
+          v-model="Device"
           outlined
-          :rules="emailRules"
-          label="Email"
+          :rules="emptyStringRule"
+          label="Device"
+          dense
+          color="#C3D7FF"
+          style="border-radius: 10px"
+        ></v-text-field>
+        <v-text-field
+          v-model="phone"
+          outlined
+          :rules="emptyStringRule"
+          label="Phone"
+          dense
+          color="#C3D7FF"
+          style="border-radius: 10px"
+        ></v-text-field>
+        <v-text-field
+          v-model="Balance"
+          outlined
+          label="Balance"
           dense
           color="#C3D7FF"
           style="border-radius: 10px"
@@ -54,9 +62,10 @@ export default {
   props: ["user"],
   data() {
     return {
-      userName: null,
       fullName: null,
-      email: null,
+      Device: null,
+      phone: null,
+      Balance: null,
       location: null,
       emptyStringRule: [(value) => !!value || "Value can Not be empty."],
       emailRules: [
@@ -77,10 +86,11 @@ export default {
       let payload = {
         id: this.user._id,
         values: {
-          userName: this.userName,
           fullName: this.fullName,
-          email: this.email,
+          phone: this.phone,
           location: this.location,
+          device: this.Device,
+          Balance: this.Balance,
         },
       };
       this.$store.dispatch("users/updateUser", payload);
@@ -88,9 +98,10 @@ export default {
     },
   },
   mounted() {
-    this.userName = this.user.userName;
+    this.Device = this.user.Device;
     this.fullName = this.user.fullName;
-    this.email = this.user.email;
+    this.phone = this.user.phone;
+    this.Balance = this.user.loanamount;
     this.location = this.user.location;
   },
 };
