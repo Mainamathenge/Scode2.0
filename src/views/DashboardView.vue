@@ -105,7 +105,7 @@ export default {
           to: "/dashboard/users",
         },
         {
-          title: "Businesses",
+          title: "Add Customer",
           icon: "mdi-briefcase",
           to: "/dashboard/businesses",
         },

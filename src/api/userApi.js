@@ -25,9 +25,9 @@ export function updateUser(data) {
 }
 
 export function activateUser(id) {
-  return axios.patch(`/api/v1/users/${id}`, { active: true });
+  return axios.patch(`/api/v1/customers/${id}`, { active: true });
 }
 
 export function deactivateUser(id) {
-  return axios.patch(`/api/v1/users/${id}`, { active: false });
+  return axios.patch(`/api/v1/customers/${id}`, { active: false });
 }
