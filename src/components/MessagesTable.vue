@@ -54,10 +54,11 @@ export default {
     pageCount: 0,
     itemsPerPage: 10,
     headers: [
-      { text: "Name", value: "fullName" },
-      { text: "Email", value: "email" },
-      { text: "Date Created", value: "createdAt" },
-      { text: "Phone number", value: "phone" },
+      { text: "TransId", value: "TransID" },
+      { text: "Phone", value: "MSISDN" },
+      { text: "Amount", value: "TransAmount" },
+      { text: "Name", value: "FirstName" },
+      { text: "Device", value: "BillRefNumber" },
       { text: "Actions", value: "actions" },
     ],
     options: {

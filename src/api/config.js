@@ -2,7 +2,7 @@ import axios from "axios";
 
 //BaseURL
 const instance = axios.create({
-  baseURL: "https://jellyfish-app-b6jxu.ondigitalocean.app",
+  baseURL: process.env.VUE_APP_BASE_URL_LOCAL,
 });
 
 instance.interceptors.request.use((config) => {

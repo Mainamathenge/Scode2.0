@@ -67,7 +67,7 @@ export default {
   async searchExplorer({ commit }, payload) {
     commit("SHOW_PROGRESSBAR", true, { root: true });
     const response = await searchUsers(payload);
-    const exprolers = response.data.data.business;
+    const exprolers = response.data.data.customers;
     console.log("exproler-calling", exprolers);
     const totalexprolers = response.data.data.totalRecords;
     commit("SET_USERS", exprolers);

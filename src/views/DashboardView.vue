@@ -109,6 +109,11 @@ export default {
           icon: "mdi-briefcase",
           to: "/dashboard/businesses",
         },
+        {
+          title: "wallet",
+          icon: "mdi-wallet",
+          to: "/dashboard/messages",
+        },
       ],
       selectedEmployee: {
         name: "",

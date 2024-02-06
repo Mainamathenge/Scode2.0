@@ -10,7 +10,7 @@ export function getUsers() {
 
 export function searchUsers(payload) {
   return axios.get(
-    `/api/v1/searches/search/exproler?page=${payload.pageNumber}&term=${payload.query}`
+    `/api/v1/customers/search?page=${payload.pageNumber}&term=${payload.query}`
   );
 }
 
@@ -21,7 +21,7 @@ export function filterUsers(payload) {
 }
 
 export function updateUser(data) {
-  return axios.patch(`/api/v1/users/${data.id}`, data.values);
+  return axios.patch(`/api/v1/customers/${data.id}`, data.values);
 }
 
 export function activateUser(id) {

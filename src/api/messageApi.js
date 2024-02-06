@@ -1,7 +1,7 @@
 import axios from "@/api/config";
 
 export function getMessages() {
-  return axios.get(`/api/v1/contacts`);
+  return axios.get(`/api/v1/wallet`);
 }
 
 export function deleteMessage(data) {

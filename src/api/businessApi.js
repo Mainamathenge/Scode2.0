@@ -10,7 +10,7 @@ export function getUsers() {
 
 export function searchBusiness(payload) {
   return axios.get(
-    `/api/v1/searches/search/business?page=${payload.pageNumber}&term=${payload.query}`
+    `/api/v1/customers/search?page=${payload.pageNumber}&term=${payload.query}`
   );
 }
 
