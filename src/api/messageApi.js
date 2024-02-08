@@ -10,6 +10,6 @@ export function deleteMessage(data) {
 
 export function searchMessage(payload) {
   return axios.get(
-    `/api/v1/searches/search/contact?page=${payload.pageNumber}&term=${payload.query}`
+    `/api/v1/wallet/search?page=${payload.pageNumber}&term=${payload.query}`
   );
 }

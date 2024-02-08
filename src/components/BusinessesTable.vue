@@ -13,34 +13,13 @@
           <v-text-field
             label="CustomerId"
             v-model="id"
-            :rules="inputRules"
+            :rules="(inputRules, NumberRulesnumber)"
           ></v-text-field>
         </v-col>
         <v-col cols="12" lg="6" sm="6" md="3">
           <v-text-field
             label="Phone Number"
             v-model="phone"
-            :rules="inputRules"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" lg="6" sm="6" md="3">
-          <v-text-field
-            label="DepositAmount"
-            v-model="deposit"
-            :rules="inputRules"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" lg="6" sm="6" md="3">
-          <v-text-field
-            label="LoanAmount"
-            v-model="loan"
-            :rules="inputRules"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" lg="6" sm="6" md="3">
-          <v-text-field
-            label="DeviceId"
-            v-model="device"
             :rules="inputRules"
           ></v-text-field>
         </v-col>
@@ -56,6 +35,29 @@
             :rules="inputRules"
             label="Customer Residence"
             v-model="residence"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" lg="6" sm="6" md="3">
+          <v-text-field
+            label="Item-Price"
+            v-model="deposit"
+            :rules="inputRules"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" lg="6" sm="6" md="3">
+          <v-select
+            label="Payment-plan"
+            :items="loanOptions"
+            :rules="inputRules"
+            v-model="loanOptions"
+            @change="loanCalculator"
+          ></v-select>
+        </v-col>
+        <v-col cols="12" lg="6" sm="6" md="3">
+          <v-text-field
+            label="Balance"
+            v-model="loan"
+            :rules="inputRules"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -88,6 +90,10 @@ export default {
       device: null,
       residence: null,
       inputRules: [(value) => !!value || "Input can not be empty."],
+      NumberRulesnumber: [
+        (value) => /^\d+$/.test(value) || "Input must contain only numbers.",
+      ],
+      loanOptions: ["Cash", "3-Months", "6-Mothts"],
     };
   },
   methods: {
@@ -103,6 +109,20 @@ export default {
       };
       this.$store.dispatch("businesses/createCustomer", payload);
       this.$emit("close");
+    },
+    loanCalculator() {
+      // calculate the loan amount
+      if (this.loanOptions === "3-Months") {
+        const loan = this.deposit - this.deposit * 0.7;
+        const newBalance = loan + loan * 1.1;
+        this.loan = newBalance;
+      } else if (this.loanOptions === "6-Months") {
+        const loan = this.deposit - this.deposit * 0.7;
+        const newBalance = loan + loan * 1.1;
+        this.loan = newBalance;
+      } else {
+        this.loan = 0;
+      }
     },
   },
 };
