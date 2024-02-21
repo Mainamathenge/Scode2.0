@@ -5,13 +5,9 @@ import ForgotPassword from "../views/ForgotPassword.vue";
 import ForgotEmail from "../views/ForgotView.vue";
 import ResetPassword from "../views/ResetPassword.vue";
 import Dashboard from "../views/DashboardView.vue";
-import DashboardStats from "../views/DashboardStats.vue";
 import DashboardUsers from "../views/DashboardUsers.vue";
-import DashboardActivity from "../views/DashboardActivity.vue";
 import DashboardBusiness from "../views/DashboardBusiness.vue";
-import DashboardCommunity from "../views/DashboardCommunity.vue";
 import DashboardMessage from "../views/DashboardMessage.vue";
-import DashboardRsvp from "../views/DashboardRsvp.vue";
 
 Vue.use(VueRouter);
 
@@ -42,11 +38,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       // Define the child routes
-      {
-        path: "",
-        name: "dashboard",
-        component: DashboardStats,
-      },
+
       {
         path: "businesses",
         component: DashboardBusiness,
@@ -56,20 +48,8 @@ const routes = [
         component: DashboardUsers,
       },
       {
-        path: "activities",
-        component: DashboardActivity,
-      },
-      {
-        path: "communities",
-        component: DashboardCommunity,
-      },
-      {
         path: "messages",
         component: DashboardMessage,
-      },
-      {
-        path: "rsvp",
-        component: DashboardRsvp,
       },
     ],
   },
