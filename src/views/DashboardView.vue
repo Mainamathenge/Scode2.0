@@ -100,14 +100,14 @@ export default {
           to: "/dashboard",
         },
         {
-          title: "Cookers",
-          icon: "mdi-account-outline",
-          to: "/dashboard/users",
-        },
-        {
           title: "Add Customer",
           icon: "mdi-briefcase",
           to: "/dashboard/businesses",
+        },
+        {
+          title: "Cookers",
+          icon: "mdi-account-outline",
+          to: "/dashboard/users",
         },
         {
           title: "wallet",
