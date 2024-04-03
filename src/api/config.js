@@ -2,7 +2,7 @@ import axios from "axios";
 
 //BaseURL
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_BASE_URL_LOCAL,
+  baseURL: process.env.VUE_APP_BASE_URL_LIVE,
 });
 
 instance.interceptors.request.use((config) => {
